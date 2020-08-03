@@ -9,6 +9,7 @@ OpenCore configuration for ASUS ROG MAXIMUS XI HERO and helper script to create 
    * [OpenCore](#opencore)
       * [Known Issues](#known-issues)
       * [ACPI](#acpi)
+      * [USB](#usb)
       * [Drivers](#drivers)
       * [Kext](#kext)
       * [Resources](#resources)
@@ -72,10 +73,14 @@ As per [OpenCore Desktop Guide](https://dortania.github.io/OpenCore-Desktop-Guid
 - [SSDT-PLUG.aml](ACPI/SSDT-PLUG.aml)
 - [SSDT-PMC.aml](ACPI/SSDT-PMC.aml)
 
-USB map for `USBInjectAll` [SSDT-UIAC.aml](ACPI/SSDT-UIAC.aml). Taken from [this great reddit post](https://www.reddit.com/r/hackintosh/comments/agzo9l/i99900k_asus_rog_maximus_xi_hero_64gb_ram/).
+### USB
 
+Based [USB Map Guild](https://dortania.github.io/USB-Map-Guide) and [Intel USB mapping](https://dortania.github.io/USB-Map-Guide/intel-mapping/intel.html).
+
+USB port naming is taken from [this great reddit post](https://www.reddit.com/r/hackintosh/comments/agzo9l/i99900k_asus_rog_maximus_xi_hero_64gb_ram/).
 ![USB port mapping](assets/usb-mapping.png)
 
+Resulting [USBMap.kext](Kexts/USBMap.kext) is used.
 
 ### Drivers
 
@@ -106,10 +111,8 @@ USB map for `USBInjectAll` [SSDT-UIAC.aml](ACPI/SSDT-UIAC.aml). Taken from [this
 ## BIOS Settings
 
 BIOS [download page](https://www.asus.com/Motherboards/ROG-MAXIMUS-XI-HERO/HelpDesk_BIOS/)
-- Version [1401](https://dlcdnets.asus.com/pub/ASUS/mb/LGA1151/ROG_MAXIMUS_XI_HERO/ROG-MAXIMUS-XI-HERO-ASUS-1401.zip)
-- Settings [backup](BIOS/V1401.CMO)
-
-Note: After update to 1502 - unable to boot from non-Windows HDD, rolled back to 1401. (09-May-2020)
+- Version [1502](https://dlcdnets.asus.com/pub/ASUS/mb/LGA1151/ROG_MAXIMUS_XI_HERO/ROG-MAXIMUS-XI-HERO-ASUS-1502.zip)
+- Settings [backup](BIOS/V1502.CMO)
 
 
 ## Create EFI directory and files helper script
@@ -119,11 +122,13 @@ Note: After update to 1502 - unable to boot from non-Windows HDD, rolled back to
 Requirements:
 
 - [bash](https://www.gnu.org/software/bash/) > 4.0
+- [Coreutils](https://www.gnu.org/software/coreutils/) > 8.15
+- [OpenSSL](https://www.openssl.org/) 1.1 (required for `wget`)
 - [wget](https://www.gnu.org/software/wget/)
 
 Should you use [Homebrew](https://brew.sh/) on macOS, install it with
 ```
-brew install bash wget
+brew install bash coreutils openssl@1.1 wget
 ```
 
 To create EFI folder, there's no need to clone this repository, just run
